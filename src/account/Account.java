@@ -22,7 +22,7 @@ public class Account {
 	        digits[i] = (char) (random.nextInt(10) + '0');
 	    }
 	    return Long.parseLong(new String(digits));
-	}
+	}  
 	
 	public void openAccount(File accountsInfo) {
 		this.sc=new Scanner(System.in);
