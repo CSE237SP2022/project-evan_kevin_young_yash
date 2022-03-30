@@ -5,13 +5,13 @@ The goal of this project is to generate a simulated bank. The bank should be abl
 
 ITERATION 1: 
 
-In this iteration, functionality was built to allow users to open and close accounts, deposit and withdraw money, and borrow money from the bank. 
+In this iteration, functionality was built to allow users to open accounts, and borrow money from the bank. We have begun working on functionality to allow users to deposit money. 
 
-Next iteration, we will refine our text output as a storage method and add functionality for users accruing interest on their account holdings. 
+Next iteration, we will finish the deposit functionality and write code to allow users to withdraw money and transfer funds between accounts. 
 
-Anything you implemented that doesn't currently work? 
+We are working on the user being able to deposit money, so it currently doesn't work, but is close. 
 
 To run code from the command line: 
 
 javac -d bin src/menu/*.java
-java -cp bin packageName(s).nameOfClass (change this)
+java -cp bin account.Account
