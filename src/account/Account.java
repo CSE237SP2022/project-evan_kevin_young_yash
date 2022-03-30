@@ -66,6 +66,27 @@ public class Account {
 		
 	}
 	
+	public static long provideUserBalance(long accountNumber, File accountsInfo) {
+		try {
+			Scanner inputStream = new Scanner(accountsInfo);
+			while (inputStream.hasNext()) {
+				String data = inputStream.next();
+				String[] allData = data.split(",");
+				long dataAccountNumber = Long.parseLong(allData[0]);
+				if (dataAccountNumber == accountNumber) {
+					long dataBalance = Long.parseLong(allData[2]);
+					inputStream.close();
+					return dataBalance;
+				}
+			} 
+			inputStream.close();
+		}
+		catch (IOException io) {
+            System.out.println(io);
+        }
+		return 0;
+	}
+
 	
 	
 	public static void main(String[] args) {
@@ -79,9 +100,14 @@ public class Account {
 	    	}
 	    	else {
 	    		System.out.println("Instructions: type 'open' to open an account; type");
-	    		if(argsScanner.next().equals("open")) {
+	    		String next = argsScanner.next();
+	    		if(next.equals("open")) {
 	    		newAccount.openAccount(accountsInfo);
+	    		} else if(next.equals("balance")) {
+	    			System.out.println("Enter your account number: ");
+	    			newAccount.provideUserBalance(argsScanner.nextLong(), accountsInfo);
 	    		}
+
 	    		
 	    	}
 			
