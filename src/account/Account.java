@@ -17,12 +17,12 @@ public class Account {
 	
 	public static long generateAccountNumber() {
 		Random random = new Random();
-	    char[] digits = new char[8];
-	    for (int i = 0; i < 8; i++) {
-	        digits[i] = (char) (random.nextInt(10)+'0');
+	    char[] digits = new char[12];
+	    for (int i = 0; i < 12; i++) {
+	        digits[i] = (char) (random.nextInt(10) + '0');
 	    }
 	    return Long.parseLong(new String(digits));
-	}
+	}  
 	
 	public void openAccount(File accountsInfo) {
 		this.sc=new Scanner(System.in);
@@ -66,51 +66,27 @@ public class Account {
 		
 	}
 	
-	public void deposit(File accountsInfo) {
-		this.sc=new Scanner(System.in);
-		System.out.println("You wish to make a deposit, please type in your account number");
-		int acctNum=Integer.parseInt(sc.next());
-		System.out.println("Please type the amount that you wish to deposit");
-		String amount=sc.next();
+	public static long provideUserBalance(long accountNumber, File accountsInfo) {
 		try {
 			Scanner inputStream = new Scanner(accountsInfo);
-            while (inputStream.hasNext()) {
-            	String data = inputStream.next(); 
-                String[] allData= data.split(","); 
-                int fileAcctNum = 0; 
-                try { 
-                	fileAcctNum = Integer.parseInt(allData[0]);
-                }
-                catch(NumberFormatException e) { 
-                }
-                String currentBalance = allData[3];
-                if(fileAcctNum == acctNum) { 
-                	int newBalance = Integer.parseInt(currentBalance) + Integer.parseInt(amount);
-                	String finalBalance = String.valueOf(newBalance); 
-                	StringBuilder sbs=new StringBuilder();
-                	sbs.append(Integer.toString(acctNum));
-    				sbs.append(",");
-    				sbs.append(allData[1]);
-    				sbs.append(",");
-    				sbs.append(allData[2]);
-    				sbs.append(",");
-    				sbs.append(finalBalance);
-    				String newData = sbs.toString();
-                	PrintWriter myWriter=new PrintWriter(new FileOutputStream(
- 						   accountsInfo, 
- 						true ));
-                	myWriter.append(newData);
-                	myWriter.close();
-                	break; 
-                }
-            }
-            inputStream.close(); 
-        }
-        catch (IOException io) {
+			while (inputStream.hasNext()) {
+				String data = inputStream.next();
+				String[] allData = data.split(",");
+				long dataAccountNumber = Long.parseLong(allData[0]);
+				if (dataAccountNumber == accountNumber) {
+					long dataBalance = Long.parseLong(allData[2]);
+					inputStream.close();
+					return dataBalance;
+				}
+			} 
+			inputStream.close();
+		}
+		catch (IOException io) {
             System.out.println(io);
         }
+		return 0;
 	}
-	
+
 	
 	
 	public static void main(String[] args) {
@@ -123,15 +99,15 @@ public class Account {
 	    		
 	    	}
 	    	else {
-	    		System.out.println("Instructions: type 'open' to open an account; type 'deposit' to make a deposit");
-	    		String input = argsScanner.next(); 
-	    		if(input.equals("open")) {
-	    			newAccount.openAccount(accountsInfo);
+	    		System.out.println("Instructions: type 'open' to open an account; type");
+	    		String next = argsScanner.next();
+	    		if(next.equals("open")) {
+	    		newAccount.openAccount(accountsInfo);
+	    		} else if(next.equals("balance")) {
+	    			System.out.println("Enter your account number: ");
+	    			newAccount.provideUserBalance(argsScanner.nextLong(), accountsInfo);
 	    		}
-	    		else if(input.equals("deposit")) {
-	    			newAccount.deposit(accountsInfo);
-	    		}
-	    		
+
 	    		
 	    	}
 			
