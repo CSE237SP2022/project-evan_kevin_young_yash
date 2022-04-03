@@ -87,6 +87,52 @@ public class Account {
 		return 0;
 	}
 	
+	public void withdraw(File accountsInfo) {
+		this.sc=new Scanner(System.in);
+		System.out.println("You wish to make a withdrawal, please type in your account number");
+		int acctNum=Integer.parseInt(sc.next());
+		System.out.println("Please type the amount that you wish to withdraw");
+		String amount=sc.next();
+		try {
+			Scanner inputStream = new Scanner(accountsInfo);
+            while (inputStream.hasNext()) {
+            	String data = inputStream.next();
+                String[] allData= data.split(","); 
+                int fileAcctNum = 0; 
+                try { 
+                	fileAcctNum = Integer.parseInt(allData[0]);
+                }
+                catch(NumberFormatException e) { 
+                }
+                String currentBalance = allData[3];
+                if(fileAcctNum == acctNum) { 
+                	int newBalance = Integer.parseInt(currentBalance) - Integer.parseInt(amount);
+                	String finalBalance = String.valueOf(newBalance); 
+                	StringBuilder sbs=new StringBuilder();
+                	sbs.append(Integer.toString(acctNum));
+    				sbs.append(",");
+    				sbs.append(allData[1]);
+    				sbs.append(",");
+    				sbs.append(allData[2]);
+    				sbs.append(",");
+    				sbs.append(finalBalance);
+    				String newData = sbs.toString();
+    				System.out.println(newData);
+                	PrintWriter myWriter=new PrintWriter(new FileOutputStream(
+ 						   accountsInfo, 
+ 						true ));
+                	myWriter.append(newData);
+                	myWriter.close();
+                	break; 
+                }
+            }
+            inputStream.close(); 
+        }
+        catch (IOException io) {
+            System.out.println(io);
+        }
+	}
+
 	public void deposit(File accountsInfo) {
 		this.sc=new Scanner(System.in);
 		System.out.println("You wish to make a deposit, please type in your account number");
@@ -133,8 +179,6 @@ public class Account {
         }
 	}
 
-
-
 	public static void main(String[] args) {
 		File accountsInfo=new File("src/accountsInfo.csv");
 		Scanner sc=new Scanner(System.in);
@@ -145,7 +189,7 @@ public class Account {
 
 			}
 			else {
-				System.out.println("Instructions: type 'open' to open an account; type 'deposit' to make a deposit"
+				System.out.println("Instructions: type 'open' to open an account; type 'deposit' to make a deposit; type 'withdraw' to make a withdrawal"
 						+ "; type 'balance' to get your current balance");
 				String next = argsScanner.next();
 				if(next.equals("open")) {
@@ -155,6 +199,8 @@ public class Account {
 					newAccount.provideUserBalance(argsScanner.nextInt(), accountsInfo);
 				} else if(next.equals("deposit")) {
 					newAccount.deposit(accountsInfo);
+				} else if(next.equals("withdraw")) {
+					newAccount.withdraw(accountsInfo);
 				}
 
 
