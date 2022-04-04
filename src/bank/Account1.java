@@ -1,4 +1,4 @@
-package account;
+package bank;
 import java.util.Scanner;
 
 import java.io.PrintWriter;
@@ -7,7 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Random;
 
-public class Account {
+public class Account1 {
 
 	private String accountType;
 	private int accountNumber;
@@ -183,7 +183,7 @@ public class Account {
 		File accountsInfo=new File("src/accountsInfo.csv");
 		Scanner sc=new Scanner(System.in);
 		Scanner argsScanner=new Scanner(System.in);
-		Account newAccount=new Account();
+		Account1 newAccount=new Account1();
 		try {
 			if(accountsInfo.createNewFile()) {
 
