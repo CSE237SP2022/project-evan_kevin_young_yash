@@ -2,13 +2,13 @@ package bank;
 import java.util.LinkedList;
 
 import bank.Account;
-import bank.Users;
+import bank.User;
 
 public class Bank {
 	
 	public String name;
 	
-	private LinkedList<Users> users;
+	private LinkedList<User> users;
 
 	
 	public static void main(String[] args) {
