@@ -32,33 +32,27 @@ public class Account {
 			String s="checking";
 			return s;
 		}
-		else {
-			throw new IllegalArgumentException("invalid account type, can only be saving and checking");
-		}
+		return null;
 			
 	}
 	public Account(String name, String type) {
-		if(checkType(type)) {
-			this.user=name;
-			this.balance=0;
-			this.accountNumber=generateAccountNumber();
-			this.accountType=updateType(type);
+		this.user=name;
+		this.balance=0;
+		this.accountNumber=generateAccountNumber();
+		if(updateType(type)==null) {
+			throw new IllegalArgumentException("invalid account type: can only be saving or checking");
 		}
-		else {
-			throw new IllegalArgumentException("invalid account type, can only be saving and checking");
-		}
+		this.accountType=updateType(type);
 	}
 	
 	public Account(String name,String type, long balance) {
-		if(checkType(type)) {
-			this.user=name;
-			this.balance=balance;
-			this.accountNumber=generateAccountNumber();
-			this.accountType=updateType(type);
+		this.user=name;
+		this.balance=balance;
+		this.accountNumber=generateAccountNumber();
+		if(updateType(type)==null) {
+			throw new IllegalArgumentException("invalid account type: can only be saving or checking");
 		}
-		else {
-			throw new IllegalArgumentException("invalid account type, can only be saving and checking");
-		}
+		this.accountType=updateType(type);
 		
 	}
 	
