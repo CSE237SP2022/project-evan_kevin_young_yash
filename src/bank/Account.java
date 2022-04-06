@@ -6,7 +6,7 @@ public class Account {
 	private String accountType;
 	private String accountNumber;
 	private String user;
-	private long balance;
+	private double balance;
 	
 	public static String generateAccountNumber() {
 		Random random = new Random();
@@ -70,7 +70,7 @@ public class Account {
 		return this.user;
 	}
 	
-	public long getBalance() {
+	public double getBalance() {
 		return this.balance;
 	}
 	
@@ -81,9 +81,6 @@ public class Account {
 
 	public static void main(String[] args) {
 		// -generated method stub
-		Account accountOne=new Account("Evan","checking");
-		System.out.print(String.valueOf(accountOne.getAccountNumber()));
-
 	}
 
 }

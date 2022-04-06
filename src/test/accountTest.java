@@ -58,5 +58,20 @@ class accountTest {
 		String numTwo=accountTwo.getAccountNumber();
 		assertEquals(8,numTwo.length());
 	}
+	
+	@Test
+	void testGetBalanceCorrectBalance() {
+		Account accountOne = new Account("Yash", "Checking", 100);
+		double accountBalance = accountOne.getBalance();
+		assertEquals(100,accountBalance, 0.0001);
+	}
+	
+	@Test
+	void testGetBalanceIncorrectBalance() {
+		Account accountOne = new Account("Yash", "Checking", 100);
+		double accountBalance = accountOne.getBalance();
+		boolean balanceCorrect = accountBalance == 90;
+		assertFalse(balanceCorrect);
+	}
 
 }

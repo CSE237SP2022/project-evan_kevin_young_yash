@@ -35,6 +35,14 @@ public class User {
 	public LinkedList<Account> getAccounts(){
 		return this.accounts;
 	}
+	
+	public Account getSingleAccount(String accountNumber) {
+		for (Account account : this.accounts) {
+			if (account.getAccountNumber().equals(accountNumber)) {
+				return account;
+			}
+		} return null;
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
