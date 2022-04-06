@@ -41,7 +41,7 @@ public class User {
 			if (account.getAccountNumber().equals(accountNumber)) {
 				return account;
 			}
-		} return null;
+		} throw new IllegalArgumentException("there is no such account, wrong account number");
 	}
 
 	public static void main(String[] args) {

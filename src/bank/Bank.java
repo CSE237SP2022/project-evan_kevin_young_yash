@@ -22,6 +22,7 @@ public class Bank {
 	}
 	
 	public User getUser(Scanner input, String argument) {
+		System.out.println("Enter your password");
 		String password = input.next();
 		int accountIndex = this.logIntoAccount(argument, password);
 		while (accountIndex < 0) {
