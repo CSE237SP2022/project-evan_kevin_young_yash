@@ -73,5 +73,12 @@ class accountTest {
 		boolean balanceCorrect = accountBalance == 90;
 		assertFalse(balanceCorrect);
 	}
+	
+	@Test
+	void testSetBalanceCorrectBalance() {
+		Account accountOne = new Account("Young", "Checking", 100);
+		accountOne.setBalance(100,55); 
+		assertEquals(155,accountOne.getBalance(), 0.0001);
+	}
 
 }

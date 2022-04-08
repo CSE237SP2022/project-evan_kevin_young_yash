@@ -129,16 +129,28 @@ public class Bank {
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());
+		}  
+	}
+	
+	public void deposit(Scanner input, Bank bank, User user) {
+		System.out.println("Please put in your account number");
+		String accountNumber = input.next();
+		try {
+			Account accountOfUser = bank.getUser(input, user.getUsername()).getSingleAccount(accountNumber);
+			System.out.println("Please put in the amount you want to deposit");
+			String balance=input.next(); 
+			accountOfUser.setBalance(accountOfUser.getBalance(), Integer.parseInt(balance));
+			System.out.println("Your balance is now: $" + accountOfUser.getBalance());
 		}
-		
-	    
-	   
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	
 	
 	public void processArguments(Scanner input, Bank bank, User user) {
-		System.out.println("What would you like to do? Write open to open your account, balance to get your account balance, quit to quit");
+		System.out.println("What would you like to do? Write open to open your account, balance to get your account balance, deposit to make a deposit, quit to quit");
 		String argument = input.next();
 		if (argument.equals("open")) {
 			Account accountOpened=bank.openAccountForUser(input, user);
@@ -149,13 +161,16 @@ public class Bank {
 			processArguments(input,bank,user);
 		} 
 		else if (argument.equals("balance")){
-			 bank.accountBalance(input, bank, user);
-			 processArguments(input,bank,user);
+			bank.accountBalance(input, bank, user);
+			processArguments(input,bank,user);
 		}
-		else if(argument.equals("quit")) {
-			
+		else if(argument.equals("deposit")) {
+			bank.deposit(input, bank, user);
+			processArguments(input,bank,user);
 		}
-		
+		else if(argument.equals("quit")) {		
+		}
+
 	}
 	
 	
