@@ -56,8 +56,12 @@ public class Account {
 		
 	}
 	
-	public void setBalance(double originalBalance, double amountAdded) { 
+	public void setDepositBalance(double originalBalance, double amountAdded) { 
 		this.balance = originalBalance+amountAdded;
+	}
+	
+	public void setWithdrawBalance(double originalBalance, double amountAdded) { 
+		this.balance = originalBalance-amountAdded;
 	}
 	
 	public String getAccountNumber() {
