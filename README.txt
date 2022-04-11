@@ -3,15 +3,12 @@ project-evan_kevin_young_yash created by GitHub Classroom
 
 The goal of this project is to generate a simulated bank. The bank should be able to open and close accounts for users (with savings and checking accounts), allow users to deposit and withdraw money, allow users to borrow money from the bank. 
 
-ITERATION 1: 
+ITERATION 2: 
 
-In this iteration, functionality was built to allow users to open accounts, and borrow money from the bank. We have begun working on functionality to allow users to deposit money. 
+In this iteration, we revised our code to remove file dependability. We implemented features allowing a user to open an account, allowing them to view their balance, allowing them to deposit money, allowing them to withdraw money, and allowing them to transfer funds. 
 
-Next iteration, we will finish the deposit functionality and write code to allow users to withdraw money and transfer funds between accounts. 
+Next iteration, we intend to add the ability for a user to borrow money from the bank and add file functionality so that after quitting the program, the file retains account information which will be added to the bank after restarting the program. 
 
-We are working on the user being able to deposit money, so it currently doesn't work, but is close. 
+Everything implemented in this iteration is functional. 
 
-To run code from the command line: 
-
-javac -d bin src/menu/*.java
-java -cp bin account.Account
+There is a script present that allows a user to run our program from the terminal. 
