@@ -77,7 +77,7 @@ class accountTest {
 	@Test
 	void testSetBalanceCorrectBalance() {
 		Account accountOne = new Account("Young", "Checking", 100);
-		accountOne.setBalance(100,55); 
+		accountOne.setDepositBalance(100,55); 
 		assertEquals(155,accountOne.getBalance(), 0.0001);
 	}
 

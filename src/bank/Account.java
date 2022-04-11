@@ -57,11 +57,17 @@ public class Account {
 	}
 	
 	public void setDepositBalance(double originalBalance, double amountAdded) { 
+		if(amountAdded<=0) {
+			throw new IllegalArgumentException("The deposit ammount must be positive");
+		}
 		this.balance = originalBalance+amountAdded;
 	}
 	
-	public void setWithdrawBalance(double originalBalance, double amountAdded) { 
-		this.balance = originalBalance-amountAdded;
+	public void setWithdrawBalance(double originalBalance, double amountWithdrawn) { 
+		if(amountWithdrawn<=0) {
+			throw new IllegalArgumentException("The withdraw amount must be positive");
+		}
+		this.balance = originalBalance-amountWithdrawn;
 	}
 	
 	public String getAccountNumber() {
