@@ -11,3 +11,4 @@ Next iteration, we intend to add the ability for a user to borrow money from the
 The code written in this iteration is functional
 ### Script
 There is a script present that allows a user to run our program from the terminal. 
+  bash script.sh
