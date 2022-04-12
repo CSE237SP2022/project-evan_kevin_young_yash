@@ -95,12 +95,15 @@ public class Bank {
 	    System.out.println("Type transfer to make a transfer");
 	    System.out.println("Type show to show all your accounts");
 	    System.out.println("Type quit to quit");
+	    System.out.println();
 	}
-	public static void initialPrompt() {
+	public static void initialPrompt(Bank bank) {
 		System.out.println();
+		System.out.println("Hi, welcome to "+bank.name);
 		System.out.println("Type login to login to your profile");
 		System.out.println("Type create to create your profile");
 		System.out.println("Type quit to quit");
+		System.out.println();
 	}
 	
 	
@@ -345,7 +348,7 @@ public class Bank {
 	
 	
 	public void processInitialArguments(Scanner input) {
-		initialPrompt();
+		initialPrompt(this);
 		String argument = input.next();
 		System.out.println();
 		if(argument.equals("login")) {
@@ -387,7 +390,6 @@ public class Bank {
 	public static void main(String[] args) {
 		Bank bankOfAmerica = new Bank("Bank of America");
 		Scanner input =new Scanner(System.in);
-		System.out.println("Hi, welcome to "+bankOfAmerica.name);
 	    bankOfAmerica.processInitialArguments(input);
 
 	}
