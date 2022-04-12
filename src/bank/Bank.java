@@ -18,6 +18,14 @@ public class Bank {
 		
 	}
 	
+	public void setUsers(LinkedList<User> input) {
+		this.users = input;
+	}
+	
+	public void setAccounts(LinkedList<Account> input) {
+		this.accounts = input;
+	}
+	
 	public static boolean isInteger(String str) {
 		 if (str == null) {
 		        return false;
@@ -139,9 +147,7 @@ public class Bank {
 		return user;
 		
 	}
-	
-	
-	
+		
 	public User logIntoAccount(String username, String password) {
 		for (User user : this.users) {
 			if(user.getUsername().equals(username) && user.getPassword().equals(password)) {
