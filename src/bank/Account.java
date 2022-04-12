@@ -1,5 +1,6 @@
 package bank;
 
+import java.util.LinkedList;
 import java.util.Random;
 
 public class Account {
@@ -7,6 +8,11 @@ public class Account {
 	private String accountNumber;
 	private String user;
 	private double balance;
+	
+	public void setAccountNumber(String input) {
+		this.accountNumber = input;
+	}
+	
 	
 	public static String generateAccountNumber() {
 		Random random = new Random();
