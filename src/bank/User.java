@@ -37,6 +37,10 @@ public class User {
 		return account;
 	}
 	
+	public void closeAccount(Account account) {
+		this.accounts.remove(account);
+	}
+	
 	public LinkedList<Account> getAccounts(){
 		return this.accounts;
 	}
