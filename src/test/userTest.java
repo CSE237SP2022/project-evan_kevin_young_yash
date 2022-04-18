@@ -68,5 +68,14 @@ class userTest {
 	    assertEquals(3,accounts.size());
 	}
 	
+	@Test 
+	void testCloseAccount() {
+		User user=new User("Evan","ABCDEFGH");
+	    Account account = user.openAccount("checking",800);
+	    user.closeAccount(account);
+	    LinkedList<Account> accounts = user.getAccounts();
+	    assertEquals(0, accounts.size());
+	}
+	
 }
 

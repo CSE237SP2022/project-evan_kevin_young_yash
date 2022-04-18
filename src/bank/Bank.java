@@ -288,7 +288,16 @@ public class Bank {
 		}
 	}
 	
-	
+	public void closeAccountForUser(User user, String accountNumber) {
+		try {
+			Account accountOfUser = user.getSingleAccount(accountNumber);
+			user.closeAccount(accountOfUser);
+			this.accounts.remove(accountOfUser);
+		}
+		catch(Exception e) {
+			System.out.println("Error: "+e.getMessage());
+		}
+	}
 	
 	
 	public void processUserArguments(Scanner input, User user) {
@@ -341,6 +350,10 @@ public class Bank {
 		else if(argument.equals("show")) {
 			showAccounts(user);
 			processUserArguments(input,user);
+		}
+		else if(argument.equals("close")) {
+			String accountNumber=promptAccountNumber(input);
+			closeAccountForUser(user, accountNumber);
 		}
 		else if(argument.equals("quit")) {		
 		}

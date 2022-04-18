@@ -124,5 +124,15 @@ class bankTest {
 		
 	}
 	
+	@Test
+	void testCloseAccount() {
+		Bank test = new Bank("TestBank"); 
+		User yash = new User("Yash","123456789");
+		Account result = test.openAccountForUser(yash, "checking", "Yes", "69420"); 
+		test.closeAccountForUser(yash, result.getAccountNumber());
+		LinkedList<Account> accounts = yash.getAccounts();
+		assertEquals(0,accounts.size());		
+	}
+	
 	
 }
