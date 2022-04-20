@@ -140,6 +140,7 @@ public class Bank {
 		}
 		try {
 		      user=new User(username,password);
+		      this.users.add(user);
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -158,7 +159,7 @@ public class Bank {
 	}
 	
 	
-	public void openAccountMenu(Scanner input, User user, Bank bank) {
+	public void openAccountMenu(Scanner input, User user) {
 		String type=promptType(input);
 		if(!checkType(type)) {
 			printTypeError();
@@ -176,10 +177,16 @@ public class Bank {
 				return ;
 			}
 			else {
-				if(isInteger(amount)) {
+				if(isInteger(amount) && yesOrNo.equalsIgnoreCase("Yes")) {
 					Account accountOpened=openAccountForUser(user, type, yesOrNo, amount);
 					if(accountOpened!=null) {
-						bank.accounts.add(accountOpened);
+						printAccountInfo(accountOpened);
+						this.accounts.add(accountOpened);
+					}
+				}
+				else if (yesOrNo.equalsIgnoreCase("No")) {
+					Account accountOpened=openAccountForUser(user, type, yesOrNo, amount);
+					if(accountOpened!=null) {
 						printAccountInfo(accountOpened);
 					}
 				}
@@ -198,6 +205,7 @@ public class Bank {
 		if(yesOrNo.equalsIgnoreCase("Yes")) {
 			try {
 			account=user.openAccount(type, Integer.parseInt(balance));
+			this.accounts.add(account);
 			}
 			catch(Exception e) {
 				System.out.print("Error: "+e.getMessage());
@@ -206,6 +214,7 @@ public class Bank {
 		else{
 			try {
 			account=user.openAccount(type);
+			this.accounts.add(account);
 			}
 			catch(Exception e) {
 				System.out.println("Error: "+e.getMessage());
@@ -218,37 +227,45 @@ public class Bank {
 	
 	
 	
-	public void accountBalance(String accountNumber, User user) {
+	public double accountBalance(String accountNumber, User user) {
+		double balance=-1;
 		try {
 		Account accountOfUser = user.getSingleAccount(accountNumber);
 		System.out.println("Your balance is: $" + accountOfUser.getBalance());
+		balance=accountOfUser.getBalance();
 		}
 		catch(Exception e) {
 			System.out.println("Error: "+e.getMessage());
 		}  
+		return balance;
 	}
 	
 	
 	
-	public void deposit(String accountNumber, String balance, User user) {
+	public double deposit(String accountNumber, String amount, User user) {
+		double balance=-1;
 		try {
 			Account accountOfUser = user.getSingleAccount(accountNumber);
-			accountOfUser.setDepositBalance(accountOfUser.getBalance(), Integer.parseInt(balance));
+			accountOfUser.setDepositBalance(Integer.parseInt(amount));
 			System.out.println("Your balance is now: $" + accountOfUser.getBalance());
+			balance=accountOfUser.getBalance();
 		}
 		catch(Exception e) {
 			System.out.println("Error: "+e.getMessage());
 		}
+		return balance;
 	}
 	
 	
 	
-	public void withdrawal(String accountNumber, String amount, User user) {
+	public double withdrawal(String accountNumber, String amount, User user) {
+		double balance=-1;
 		try {
 			Account accountOfUser = user.getSingleAccount(accountNumber);
 			if (accountOfUser.getBalance() >= Integer.parseInt(amount)) {
-				accountOfUser.setWithdrawBalance(accountOfUser.getBalance(), Integer.parseInt(amount));
+				accountOfUser.setWithdrawBalance(Integer.parseInt(amount));
 				System.out.println("Your balance is now: $" + accountOfUser.getBalance());
+				balance=accountOfUser.getBalance();
 			}
 			else {
 				printAmountError(accountOfUser);
@@ -257,35 +274,50 @@ public class Bank {
 		catch(Exception e) {
 			System.out.println("Error: "+e.getMessage());
 		}
+		return balance;
 	}
 	
 	
 	
-	public void transfer(String accountNumberOne, String accountNumberTwo, String balance) {
+	public double[] transfer(String accountNumberOne, String accountNumberTwo, String amount, User user) {
+		double[] balance=new double[2];
 		try {
 			Account accountOne = this.getSingleAccount(accountNumberOne);
 			Account accountTwo = this.getSingleAccount(accountNumberTwo);
-			if(Integer.parseInt(balance)>accountOne.getBalance()) {
+			if(Integer.parseInt(amount)>accountOne.getBalance()) {
 				printAmountError(accountOne);
-				return ;
+				return balance;
 			}
-			accountOne.setWithdrawBalance(accountOne.getBalance(), Integer.parseInt(balance));
-			accountTwo.setDepositBalance(accountTwo.getBalance(), Integer.parseInt(balance));
+			try {
+				user.getSingleAccount(accountNumberOne);
+			}
+			catch(Exception e){
+				System.out.println("Error: The first account must belong to you");
+				return balance;
+			}
+			accountOne.setWithdrawBalance(Integer.parseInt(amount));
+			accountTwo.setDepositBalance(Integer.parseInt(amount));
+			balance[0]=accountOne.getBalance();
+			balance[1]=accountTwo.getBalance();
 			System.out.println("The balance of account " + accountOne.getAccountNumber() + " is now: $" + accountOne.getBalance());
 			System.out.println("The balance of account " + accountTwo.getAccountNumber() + " is now: $" + accountTwo.getBalance());
 		}
 		catch(Exception e) {
 			System.out.println("Error: "+e.getMessage());
 		}
+		return balance;
 
 	}
 	
-	public void showAccounts(User user) {
+	public String[] showAccounts(User user) {
+		String[] accounts=new String[user.getAccounts().size()];
 		int i=0;
 		for(Account account : user.getAccounts()) {
+			accounts[i]=account.getAccountNumber();
 			System.out.println("Account"+i+": "+account.getAccountNumber());
 			i++;
 		}
+		return accounts;
 	}
 	
 	public void closeAccountForUser(User user, String accountNumber) {
@@ -305,7 +337,7 @@ public class Bank {
 		String argument = input.next();
 		System.out.println();
 		if (argument.equals("open")) {
-			openAccountMenu(input,user,this);
+			openAccountMenu(input,user);
 			processUserArguments(input,user);
 		} 
 		else if (argument.equals("balance")){
@@ -340,7 +372,7 @@ public class Bank {
 			String accountNumberTwo=promptAccountNumber(input);
 			String amount=promptAmount(input);
 			if(isInteger(amount)) {
-				transfer(accountNumberOne,accountNumberTwo,amount);
+				transfer(accountNumberOne,accountNumberTwo,amount, user);
 			}
 			else {
 				printNotNumberError();
@@ -391,7 +423,6 @@ public class Bank {
 				System.out.println("There was an error in creating your profile, try again");
 			}
 			else {
-				this.users.add(user);
 				System.out.println("You have successfully created your profile with username: "+user.getUsername());
 			}
 			processInitialArguments(input);
