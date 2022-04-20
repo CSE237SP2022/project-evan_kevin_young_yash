@@ -123,6 +123,54 @@ class bankTest {
 		assertTrue(thrown); 
 		
 	}
+	@Test
+	void testDepositAccount() {
+		Bank test=new Bank("TestBank");
+		User Evan=new User("Evan","123456789");
+		Account account=test.openAccountForUser(Evan, "checking", "yes", "2000");
+		test.deposit(account.getAccountNumber(), "500", Evan);
+        assertEquals(2500,account.getBalance());
+		test.deposit(account.getAccountNumber(),"-1", Evan);
+		assertEquals(2500,account.getBalance());
+	}
+	@Test
+	void testWithdrawAccount() {
+		Bank test=new Bank("TestBank");
+		User Evan=new User("Evan","123456789");
+		Account account=test.openAccountForUser(Evan, "checking", "yes", "2000");
+		test.withdrawal(account.getAccountNumber(), "500", Evan);
+        assertEquals(1500,account.getBalance());
+		test.withdrawal(account.getAccountNumber(),"-1", Evan);
+		assertEquals(1500,account.getBalance());
+	}
+	@Test
+	void testTransferAccount() {
+		Bank test=new Bank("TestBank");
+		User Evan=test.setUpUser("Evan", "123456789");
+		User Jason=test.setUpUser("Jason", "1234567789");
+		Account accountOne=test.openAccountForUser(Evan, "checking", "yes", "2000");
+		Account accountTwo=test.openAccountForUser(Jason, "checking", "yes", "2000");
+		test.transfer(accountOne.getAccountNumber(),accountTwo.getAccountNumber(),"500",Evan);
+		assertEquals(1500,accountOne.getBalance());
+		assertEquals(2500,accountTwo.getBalance());
+		test.transfer(accountOne.getAccountNumber(), accountTwo.getAccountNumber(), "-1",Evan);
+		assertEquals(1500,accountOne.getBalance());
+		assertEquals(2500,accountTwo.getBalance());
+		test.transfer(accountOne.getAccountNumber(), accountTwo.getAccountNumber(), "500",Jason);
+		assertEquals(1500,accountOne.getBalance());
+		assertEquals(2500,accountTwo.getBalance());
+	}
+	
+	@Test
+	void testShowAccount() {
+		Bank test=new Bank("TestBank");
+		User Evan=test.setUpUser("Evan", "123456789");
+		Account accountOne=test.openAccountForUser(Evan, "checking", "yes", "500");
+		Account accountTwo=test.openAccountForUser(Evan, "checking", "yes", "500");
+		String[] accounts=test.showAccounts(Evan);
+		assertEquals(accounts[0],accountOne.getAccountNumber());
+		assertEquals(accounts[1],accountTwo.getAccountNumber());
+	}
 	
 	@Test
 	void testCloseAccount() {
