@@ -76,6 +76,13 @@ public class Account {
 		this.balance = this.balance-amountWithdrawn;
 	}
 	
+	public void setLoanBalance(double amountLoaned) { 
+		if(amountLoaned<=0) {
+			throw new IllegalArgumentException("The loan amount must be positive");
+		}
+		this.balance = this.balance+amountLoaned;
+	}
+	
 	public String getAccountNumber() {
 		return this.accountNumber;
 	}

@@ -162,6 +162,17 @@ class bankTest {
 	}
 	
 	@Test
+	void testLoanAccount() {
+		Bank test=new Bank("TestBank");
+		User Evan=new User("Evan","123456789");
+		Account account=test.openAccountForUser(Evan, "checking", "yes", "2000");
+		test.loan(account.getAccountNumber(), "500", Evan);
+        assertEquals(2500,account.getBalance());
+		test.loan(account.getAccountNumber(),"-1", Evan);
+		assertEquals(2500,account.getBalance());
+	}
+	
+	@Test
 	void testShowAccount() {
 		Bank test=new Bank("TestBank");
 		User Evan=test.setUpUser("Evan", "123456789");

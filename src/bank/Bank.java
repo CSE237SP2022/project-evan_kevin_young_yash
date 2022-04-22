@@ -101,6 +101,7 @@ public class Bank {
 	    System.out.println("Type deposit to make a deposit");
 	    System.out.println("Type withdraw to make a withdraw");
 	    System.out.println("Type transfer to make a transfer");
+	    System.out.println("Type loan to make a loan");
 	    System.out.println("Type show to show all your accounts");
 	    System.out.println("Type quit to quit");
 	    System.out.println();
@@ -277,6 +278,20 @@ public class Bank {
 		return balance;
 	}
 	
+	public double loan(String accountNumber, String amount, User user) {
+		double balance=-1;
+		try {
+			Account accountOfUser = user.getSingleAccount(accountNumber);
+			accountOfUser.setLoanBalance(Integer.parseInt(amount));
+			System.out.println("Your balance is now: $" + accountOfUser.getBalance());
+			balance=accountOfUser.getBalance();		
+		}
+		catch(Exception e) {
+			System.out.println("Error: "+e.getMessage());
+		}
+		return balance;
+	}
+	
 	
 	
 	public double[] transfer(String accountNumberOne, String accountNumberTwo, String amount, User user) {
@@ -373,6 +388,17 @@ public class Bank {
 			String amount=promptAmount(input);
 			if(isInteger(amount)) {
 				transfer(accountNumberOne,accountNumberTwo,amount, user);
+			}
+			else {
+				printNotNumberError();
+			}
+			processUserArguments(input,user);
+		}
+		else if(argument.equals("loan")) {
+			String accountNumber=promptAccountNumber(input);
+			String amount=promptAmount(input);
+			if(isInteger(amount)) {
+				loan(accountNumber,amount, user);
 			}
 			else {
 				printNotNumberError();
