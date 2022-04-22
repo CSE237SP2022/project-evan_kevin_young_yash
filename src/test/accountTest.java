@@ -80,5 +80,20 @@ class accountTest {
 		accountOne.setDepositBalance(55); 
 		assertEquals(155,accountOne.getBalance(), 0.0001);
 	}
+	
+	@Test
+	void testSetLoanBalance() {
+		Account accountOne = new Account("Young", "Checking", 100);
+		accountOne.setLoanBalance(55); 
+		assertEquals(155,accountOne.getBalance(), 0.0001);
+		boolean thrown = false; 
+		try{
+			accountOne.setLoanBalance(-1); 
+		}
+		catch (IllegalArgumentException e){
+			thrown = true; 
+		}
+		assertTrue(thrown); 
+	}
 
 }
