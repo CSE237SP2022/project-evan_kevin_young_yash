@@ -263,6 +263,12 @@ public class Bank {
 		double balance=-1;
 		try {
 			Account accountOfUser = user.getSingleAccount(accountNumber);
+			try {
+				boolean accountType = accountOfUser.checkType("checking");
+			}
+			catch(Exception e) {
+				System.out.println("Error: must be checking account");
+			}
 			if (accountOfUser.getBalance() >= Integer.parseInt(amount)) {
 				accountOfUser.setWithdrawBalance(Integer.parseInt(amount));
 				System.out.println("Your balance is now: $" + accountOfUser.getBalance());
@@ -299,6 +305,13 @@ public class Bank {
 		try {
 			Account accountOne = this.getSingleAccount(accountNumberOne);
 			Account accountTwo = this.getSingleAccount(accountNumberTwo);
+			try {
+				boolean accountOneType = accountOne.checkType("checking");
+				boolean accountTwoType = accountTwo.checkType("checking");
+			}
+			catch(Exception e) {
+				System.out.println("Error: must be checking account");
+			}
 			if(Integer.parseInt(amount)>accountOne.getBalance()) {
 				printAmountError(accountOne);
 				return balance;
