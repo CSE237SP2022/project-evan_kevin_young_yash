@@ -5,7 +5,7 @@ The goal of this project is to generate a simulated bank. The bank should be abl
 
 ## Iteration 3
 ### Accomplished in this Iteration
-In this iteration, we added tests to the Bank Class for deposit, withdraw, and transfer functions. We also implemented features allowing a user to close their account, limiting the functions of a savings account to only deposit and transfer money. 
+In this iteration, we added tests to the Bank & Account Class for deposit, withdraw, and transfer functions. We also implemented features allowing a user to close their account, limiting the functions of a savings account to only deposit and transfer money, and allowing a user to loan money from the bank 
 ### Goals for Next Iteration
 Although there is no next iteration, something to explore is file functionality, so that when the program is closed, we can recover the accounts and balances in accounts through reading a CSV file. 
 ### Functionality
