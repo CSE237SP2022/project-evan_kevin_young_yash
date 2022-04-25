@@ -82,6 +82,38 @@ class accountTest {
 	}
 	
 	@Test
+	void testSavingNotBeAbleToWithdraw() {
+		Account account=new Account("Evan","Saving", 100);
+		assertThrows(IllegalArgumentException.class, ()->{
+			account.setWithdrawBalance(20);
+		});
+	}
+	
+	@Test
+	void testWithdrawExceed() {
+		Account account=new Account("Evan","Checking", 90);
+		assertThrows(IllegalArgumentException.class, ()->{
+			account.setWithdrawBalance(100);
+		});
+	}
+	
+	@Test
+	void testWithdrawNegative() {
+		Account account=new Account("Evan","Checking", 90);
+		assertThrows(IllegalArgumentException.class, ()->{
+			account.setWithdrawBalance(-1);
+		});
+	}
+	
+	@Test
+	void testDepositNegative() {
+		Account account=new Account("Evan","Checking", 90);
+		assertThrows(IllegalArgumentException.class, ()->{
+			account.setDepositBalance(-1);
+		});
+	}
+	
+	@Test
 	void testSetLoanBalance() {
 		Account accountOne = new Account("Young", "Checking", 100);
 		accountOne.setLoanBalance(55); 
