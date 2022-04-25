@@ -1,7 +1,6 @@
 package bank;
 import java.util.LinkedList;
 
-import bank.Account;
 
 public class User {
 	public String username;
@@ -51,11 +50,6 @@ public class User {
 				return account;
 			}
 		} throw new IllegalArgumentException("there is no such account, wrong account number");
-	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

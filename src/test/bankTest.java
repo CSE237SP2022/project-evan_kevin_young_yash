@@ -134,7 +134,7 @@ class bankTest {
 		assertEquals(2500,account.getBalance());
 	}
 	@Test
-	void testWithdrawAccount() {
+	void testWithdrawAccountOne() {
 		Bank test=new Bank("TestBank");
 		User Evan=new User("Evan","123456789");
 		Account account=test.openAccountForUser(Evan, "checking", "yes", "2000");
@@ -143,8 +143,18 @@ class bankTest {
 		test.withdrawal(account.getAccountNumber(),"-1", Evan);
 		assertEquals(1500,account.getBalance());
 	}
+	
 	@Test
-	void testTransferAccount() {
+	void testWithdrawAccountTwo() {
+		Bank test=new Bank("TestBank");
+		User Evan=new User("Evan","123456789");
+		Account account=test.openAccountForUser(Evan, "saving", "yes", "2000");
+		test.withdrawal(account.getAccountNumber(), "500", Evan);
+        assertEquals(2000,account.getBalance());
+	}
+	
+	@Test
+	void testTransferAccountOne() {
 		Bank test=new Bank("TestBank");
 		User Evan=test.setUpUser("Evan", "123456789");
 		User Jason=test.setUpUser("Jason", "1234567789");
@@ -160,6 +170,19 @@ class bankTest {
 		assertEquals(1500,accountOne.getBalance());
 		assertEquals(2500,accountTwo.getBalance());
 	}
+	
+	@Test
+	void testTransferAccountTwo() {
+		Bank test=new Bank("TestBank");
+		User Evan=test.setUpUser("Evan", "123456789");
+		User Jason=test.setUpUser("Jason", "1234567789");
+		Account accountOne=test.openAccountForUser(Evan, "saving", "yes", "2000");
+		Account accountTwo=test.openAccountForUser(Jason, "checking", "yes", "2000");
+		test.transfer(accountOne.getAccountNumber(),accountTwo.getAccountNumber(),"500",Evan);
+		assertEquals(2000,accountOne.getBalance());
+		assertEquals(2000,accountTwo.getBalance());
+	}
+	
 	
 	@Test
 	void testLoanAccount() {
@@ -192,6 +215,7 @@ class bankTest {
 		LinkedList<Account> accounts = yash.getAccounts();
 		assertEquals(0,accounts.size());		
 	}
+	
 	
 	
 }

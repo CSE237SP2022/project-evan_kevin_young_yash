@@ -76,6 +76,21 @@ class userTest {
 	    LinkedList<Account> accounts = user.getAccounts();
 	    assertEquals(0, accounts.size());
 	}
+	@Test
+	void testGetSingleAccountOne() {
+		User user=new User("Evan","ABCDEFGH");
+	    Account accountOne=user.openAccount("checking",800);
+	    String accountOneNum=accountOne.getAccountNumber();
+	    assertEquals(accountOne,user.getSingleAccount(accountOneNum));
+	}
+	
+	@Test
+	void testGetSingleAccountTwo() {
+		User user=new User("Evan","ABCDEFGH");
+	    Account accountOne=user.openAccount("checking",800);
+	    String accountOneNum=accountOne.getAccountNumber();
+	    assertThrows(IllegalArgumentException.class, ()->{user.getSingleAccount("");});
+	}
 	
 }
 

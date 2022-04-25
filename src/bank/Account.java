@@ -1,6 +1,5 @@
 package bank;
 
-import java.util.LinkedList;
 import java.util.Random;
 
 public class Account {
@@ -66,21 +65,27 @@ public class Account {
 		if(amountAdded<=0) {
 			throw new IllegalArgumentException("The deposit ammount must be positive");
 		}
-		this.balance = this.balance+amountAdded;
+		this.balance += amountAdded;
 	}
 	
 	public void setWithdrawBalance(double amountWithdrawn) { 
+		if(this.accountType.equalsIgnoreCase("saving")) {
+			throw new IllegalArgumentException("You cannot withdraw money from saving account");
+		}
 		if(amountWithdrawn<=0) {
 			throw new IllegalArgumentException("The withdraw amount must be positive");
 		}
-		this.balance = this.balance-amountWithdrawn;
+		if(amountWithdrawn>=this.balance) {
+			throw new IllegalArgumentException("The withdraw amount cannot exceed your current balance");
+		}
+		this.balance -= amountWithdrawn;
 	}
 	
 	public void setLoanBalance(double amountLoaned) { 
 		if(amountLoaned<=0) {
 			throw new IllegalArgumentException("The loan amount must be positive");
 		}
-		this.balance = this.balance+amountLoaned;
+		this.balance += amountLoaned;
 	}
 	
 	public String getAccountNumber() {
@@ -99,9 +104,5 @@ public class Account {
 		return this.accountType;
 	}
 	
-
-	public static void main(String[] args) {
-		// -generated method stub
-	}
 
 }
