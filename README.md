@@ -13,6 +13,9 @@ The code written in this iteration is fully functional
 ### Script
 There is a script present that allows a user to run our program from the terminal. 
 
+    bash script.sh
+
+
 ## Iteration 2
 ### Accomplished in this iteration:
 In this iteration, we revised our code to remove file dependability. We implemented features allowing a user to open an account, allowing them to view their balance, allowing them to deposit money, allowing them to withdraw money, and allowing them to transfer funds. 
